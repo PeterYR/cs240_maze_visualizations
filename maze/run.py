@@ -4,6 +4,8 @@ from PIL import Image, ImageColor
 from drawmaze import MazeBlock
 from constants import WIDTH, CELL_SIZE
 
+BG_COLOR = (255, 255, 255, 255)
+
 try:
     raw_data = requests.get('http://sp22-cs240-adm.cs.illinois.edu:24000/mazeState', timeout = 5).json()
     print(f'Loaded {len(raw_data)} blocks')
@@ -42,8 +44,16 @@ for key, val in data.items():
         geom = val[0]['geom']
     else:
         geom = val[0]
-
     mb.parse_data(geom)
+    
+    block_img = mb.export()
+    # set background
+    block_pixels = block_img.load()
+    for i in range(block_img.size[0]):
+        for j in range(block_img.size[1]):
+            if block_pixels[i, j] == (0, 0, 0, 0):
+                block_pixels[i, j] = BG_COLOR
+
     image.paste(mb.export(), img_loc)
 
 image.save('output.png')
