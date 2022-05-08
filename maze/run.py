@@ -48,12 +48,12 @@ for key, val in data.items():
     
     block_img = mb.export()
     # set background
-    block_pixels = block_img.load()
-    for i in range(block_img.size[0]):
-        for j in range(block_img.size[1]):
-            if block_pixels[i, j] == (0, 0, 0, 0):
-                block_pixels[i, j] = BG_COLOR
+    # block_pixels = block_img.load()
+    # for i in range(1, block_img.size[0] - 1):
+    #     for j in range(1, block_img.size[1] - 1):
+    #         if block_pixels[i, j] == (0, 0, 0, 0):
+    #             block_pixels[i, j] = BG_COLOR
 
-    image.paste(mb.export(), img_loc)
+    image.paste(block_img, img_loc, block_img)
 
 image.save('output.png')
