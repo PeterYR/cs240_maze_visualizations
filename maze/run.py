@@ -34,6 +34,10 @@ width_blocks = max_col - min_col + 1
 height_blocks = max_row - min_row + 1
 image = Image.new('RGBA', (block_size * width_blocks + 1, block_size * height_blocks + 1))
 
+# set up background
+bkg_image = image.copy()
+bkg_square = Image.new('RGBA', (CELL_SIZE * WIDTH + 1, CELL_SIZE * WIDTH + 1), color=BG_COLOR)
+
 for key, val in data.items():
     img_loc = [n * CELL_SIZE * WIDTH for n in key]
     img_loc.reverse()
@@ -55,5 +59,7 @@ for key, val in data.items():
     #             block_pixels[i, j] = BG_COLOR
 
     image.paste(block_img, img_loc, block_img)
+    bkg_image.paste(bkg_square, img_loc)
 
-image.save('output.png')
+bkg_image.paste(image, None, image)
+bkg_image.save('output.png')
