@@ -38,4 +38,4 @@ for coord in coords:
     pixels[coord[1], coord[0]] = (233, 192, 255)
 
 
-image.save('grid.png')
+image.save('output.png')
